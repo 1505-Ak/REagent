@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAgent - AI Real Estate Concierge</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-home"></i>
+                    <h1>REAgent</h1>
+                </div>
+                <div class="header-info">
+                    <span class="tagline">Your AI Real Estate Concierge</span>
+                    <div class="header-actions">
+                        <button id="preferencesBtn" class="btn btn-outline">
+                            <i class="fas fa-cog"></i> Preferences
+                        </button>
+                        <button id="clearChatBtn" class="btn btn-outline">
+                            <i class="fas fa-trash"></i> Clear Chat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <h2>Let's find your perfect home</h2>
+                        <p>Tell me about your ideal property and I'll help you find it</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot online"></span>
+                        <span class="status-text">REAgent Online</span>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message agent-message welcome-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="sender">REAgent</span>
+                                <span class="timestamp">Just now</span>
+                            </div>
+                            <div class="message-text">
+                                <p>Hello! I'm REAgent, your intelligent real estate assistant. I'm here to help you find the perfect home through natural conversation.</p>
+                                <p>Just tell me what you're looking for - location, budget, property type, or any specific requirements. I'll learn your preferences and find properties that match exactly what you need.</p>
+                                <div class="quick-starters">
+                                    <p><strong>Try saying something like:</strong></p>
+                                    <div class="starter-buttons">
+                                        <button class="starter-btn">"I'm looking for a 2-bedroom flat in London under £500k"</button>
+                                        <button class="starter-btn">"Find me a family house with a garden in Manchester"</button>
+                                        <button class="starter-btn">"I need a modern apartment near good transport links"</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="messageInput" placeholder="Describe your ideal home..." class="chat-input">
+                        <button id="sendBtn" class="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <span class="typing-indicator" id="typingIndicator" style="display: none;">
+                            <i class="fas fa-circle"></i>
+                            <i class="fas fa-circle"></i>
+                            <i class="fas fa-circle"></i>
+                            REAgent is typing...
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Property Recommendations -->
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-star"></i> Recommendations</h3>
+                        <span class="badge" id="recommendationCount">0</span>
+                    </div>
+                    <div class="recommendations-container" id="recommendationsContainer">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>Start chatting to get personalized property recommendations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learned Preferences -->
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-heart"></i> Your Preferences</h3>
+                    </div>
+                    <div class="preferences-container" id="preferencesContainer">
+                        <div class="empty-state">
+                            <i class="fas fa-lightbulb"></i>
+                            <p>I'll learn your preferences as we chat</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Preferences Modal -->
+    <div class="modal" id="preferencesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Preference Insights</h2>
+                <button class="modal-close" id="closePreferencesModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="insights-container" id="insightsContainer">
+                    <!-- Insights will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Details Modal -->
+    <div class="modal" id="propertyModal">
+        <div class="modal-content property-modal">
+            <div class="modal-header">
+                <h2>Property Details</h2>
+                <button class="modal-close" id="closePropertyModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="property-details" id="propertyDetails">
+                    <!-- Property details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Finding properties...</p>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html> 
